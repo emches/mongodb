@@ -3,8 +3,20 @@ var router = express.Router();
 // could use one line instead: var router = require('express').Router();
 
 router.get('/', function (req, res) {
- res.render('index')
+ res.redirect('/');
+
 });
+
+router.post('/', function (req, res) {
+ res.json(req.body)
+
+});
+
+router.get('/add', function (req, res) {
+ res.render('addpage');
+});
+
+
 
 
 
