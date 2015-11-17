@@ -1,3 +1,4 @@
+
 var mongoose = require('mongoose');
 // Notice the `mongodb` protocol; Mongo is basically a kind of server,
 // which handles database requests and sends responses. It's async!
@@ -20,6 +21,12 @@ var pageSchema = new Schema({
 pageSchema.virtual('route').get(function () {
   return '/wiki/' + this.urlTitle;
 });
+
+pageSchema.pre('validate', function(next) {
+  var charTest = new RegExp(/[^a-zA-z\d\s/]/g);
+  this.urlTitle = this.title.replace(charTest, '').split(' ').join('_');
+  next(); 
+})
 
 var userSchema = new Schema({
   name:   {type: String, required: true},

@@ -32,6 +32,11 @@ app.use(morgan('dev')); // logs req & res properties on response send
 //   next();
 // });
 
+// home page
+app.get('/', function(req, res, next) {
+  res.status(200).send('hello'); 
+})
+
 // dynamic routing
 app.use('/wiki', wikiRouter);
 
