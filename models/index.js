@@ -15,7 +15,8 @@ var pageSchema = new Schema({
   content:   {type: String, required: true},
   date:      {type: Date, default: Date.now },
   status:    {type: String, enum: ['open','closed'] },
-  author:   {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  tags:      {type: []},
+  author:    {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 });
 
 pageSchema.virtual('route').get(function () {
@@ -25,8 +26,13 @@ pageSchema.virtual('route').get(function () {
 pageSchema.pre('validate', function(next) {
   var charTest = new RegExp(/[^a-zA-z\d\s/]/g);
   this.urlTitle = this.title.replace(charTest, '').split(' ').join('_');
-  next(); 
-})
+
+  this.tags = this.tags[0].split(/[,| ]/).filter(function(item){
+    return item;
+  });
+
+  next();
+});
 
 var userSchema = new Schema({
   name:   {type: String, required: true},

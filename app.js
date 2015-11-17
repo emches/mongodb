@@ -5,11 +5,14 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mime = require('mime'),
     fs = require('fs');
+    require('./filters')(swig);
 
 // "constants" (not really) and our own modules
 var PORT = 1337,
     app = express(),
-    wikiRouter = require('./routes/wiki.js');
+    wikiRouter = require('./routes/wiki.js'),
+    homeRouter = require('./routes/home.js');
+
 
 // Swig boilerplate
 app.set('views', __dirname + '/views'); // where to find views
@@ -34,11 +37,12 @@ app.use(morgan('dev')); // logs req & res properties on response send
 
 // home page
 app.get('/', function(req, res, next) {
-  res.status(200).send('hello'); 
+  res.status(200).send('hello');
 })
 
 // dynamic routing
 app.use('/wiki', wikiRouter);
+app.use('/', homeRouter);
 
 // static routing
 app.use(express.static(__dirname + '/public'));
