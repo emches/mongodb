@@ -4,8 +4,10 @@
   <h3>{{pageContent.title}} <small> (<a href="PLACEHOLDER_URL_TITLE/similar">Similar</a>)</small></h3>
   <h4>by <a href="PLACEHOLDER-AUTHOR-URL">PLACEHOLDER AUTHOR NAME</a></h4>
   <div>
-
- <span>TAGS: {{ tags }}</span>
+  	<span>Tags:</span> 
+  {% for tag in tags %}
+	 <span>{{ tag | tagLink}}</span>
+  {% endfor %}
 
 </div>
   <hr/>

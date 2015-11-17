@@ -8,4 +8,11 @@ module.exports = function(swig) {
 
   swig.setFilter('pageLink', pageLink);
 
+  var tagLink = function(tag) {
+  	return '<a href="/search?tags=' + tag +'">' + tag + '</a>'; 
+  }; 
+
+  tagLink.safe = true; 
+  swig.setFilter('tagLink', tagLink);
+
 };

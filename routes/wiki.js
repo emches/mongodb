@@ -50,7 +50,7 @@ console.log("urlTitle", urlTitle);
       console.log("tagslen", pageContent.tags.length);
 
 
-      res.render('wikipage', {pageContent : pageContent , tags: pageContent.tags.join(", ") })
+      res.render('wikipage', {pageContent : pageContent , tags: pageContent.tags })
 
    }).then(null, next);
 
